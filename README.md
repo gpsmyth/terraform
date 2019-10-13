@@ -65,3 +65,5 @@ As per plan command
 
 `terraform destroy`
 
+To build an ec2 instance, obtain the ami id   
+`aws ec2 describe-images --owners amazon --filters 'Name=name,Values=amzn2-ami-hvm-2.0.????????-x86_64-gp2' 'Name=state,Values=available' --query 'reverse(sort_by(Images, &CreationDate))[:1].ImageId' --output text`  
