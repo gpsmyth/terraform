@@ -1,7 +1,7 @@
 # Create a Public n Private Subnet for AZA n B
-resource "aws_subnet" "ingress_subnet_az_1" {
-  vpc_id                  = "${aws_vpc.main.id}"
-  cidr_block              = "${var.ingress_subnet_az_1_CIDR}"
+resource "aws_subnet" "Public_subnet_az_1" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = var.Public_subnet_az_1_CIDR
   availability_zone       = "ap-southeast-2a"
   map_public_ip_on_launch = "true"
 
@@ -15,9 +15,9 @@ resource "aws_subnet" "ingress_subnet_az_1" {
 }
 
 
-resource "aws_subnet" "ingress_subnet_az_2" {
-  vpc_id                  = "${aws_vpc.main.id}"
-  cidr_block              = "${var.ingress_subnet_az_2_CIDR}"
+resource "aws_subnet" "Public_subnet_az_2" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = var.Public_subnet_az_2_CIDR
   availability_zone       = "ap-southeast-2b"
   map_public_ip_on_launch = "true"
 
@@ -31,9 +31,9 @@ resource "aws_subnet" "ingress_subnet_az_2" {
 }
 
 
-resource "aws_subnet" "private_subnet_az_1" {
-  vpc_id            = "${aws_vpc.main.id}"
-  cidr_block        = "${var.private_subnet_az_1_CIDR}"
+resource "aws_subnet" "Private_subnet_az_1" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.Private_subnet_az_1_CIDR
   availability_zone = "ap-southeast-2a"
 
   tags = {
@@ -46,9 +46,9 @@ resource "aws_subnet" "private_subnet_az_1" {
 }
 
 
-resource "aws_subnet" "private_subnet_az_2" {
-  vpc_id            = "${aws_vpc.main.id}"
-  cidr_block        = "${var.private_subnet_az_2_CIDR}"
+resource "aws_subnet" "Private_subnet_az_2" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.Private_subnet_az_2_CIDR
   availability_zone = "ap-southeast-2b"
 
   tags = {

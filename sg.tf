@@ -1,8 +1,28 @@
-# Security group for ALB, port 80 both wats
+resource "aws_security_group" "ec2_sg" {
+  name        = "ec2_sg"
+  description = "Allow all inbound traffic"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+# Security group for ALB, port 80 both ways
 resource "aws_security_group" "alb_sg" {
   name        = "alb_sg"
   description = "Allow all inbound traffic"
-  vpc_id      = "${aws_vpc.main.id}"
+  vpc_id      = aws_vpc.main.id
 
   ingress {
     from_port   = 80
@@ -15,14 +35,14 @@ resource "aws_security_group" "alb_sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["${var.private_subnet_az_1_CIDR}"]
+    cidr_blocks = ["${var.Private_subnet_az_1_CIDR}"]
   }
 
   egress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["${var.private_subnet_az_2_CIDR}"]
+    cidr_blocks = ["${var.Private_subnet_az_2_CIDR}"]
   }
 
   tags = {
@@ -39,27 +59,27 @@ resource "aws_security_group" "alb_sg" {
 resource "aws_security_group" "app_server_sg" {
   name        = "app_server_sg"
   description = "Allow all inbound traffic"
-  vpc_id      = "${aws_vpc.main.id}"
+  vpc_id      = aws_vpc.main.id
 
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["${var.ingress_subnet_az_1_CIDR}"]
+    cidr_blocks = ["${var.Public_subnet_az_1_CIDR}"]
   }
 
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["${var.ingress_subnet_az_2_CIDR}"]
+    cidr_blocks = ["${var.Public_subnet_az_2_CIDR}"]
   }
 
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["${var.ingress_subnet_az_1_CIDR}"]
+    cidr_blocks = ["${var.Public_subnet_az_1_CIDR}"]
   }
 
   tags = {
@@ -74,7 +94,7 @@ resource "aws_security_group" "app_server_sg" {
 resource "aws_security_group" "bastion_sg" {
   name        = "bastion_sg"
   description = "Allow all inbound traffic"
-  vpc_id      = "${aws_vpc.main.id}"
+  vpc_id      = aws_vpc.main.id
 
   ingress {
     from_port = 22
@@ -88,16 +108,26 @@ resource "aws_security_group" "bastion_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["${var.private_subnet_az_1_CIDR}"]
+    cidr_blocks = ["${var.Private_subnet_az_1_CIDR}"]
   }
 
   egress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["${var.private_subnet_az_2_CIDR}"]
+    cidr_blocks = ["${var.Private_subnet_az_2_CIDR}"]
   }
 
+  /*
+  Consider
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  */
+  
   tags = {
     Name = "bastion_sg"
   }
