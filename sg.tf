@@ -57,7 +57,7 @@ resource "aws_security_group" "alb_sg" {
   }
 
   depends_on = [
-    "aws_vpc.main"
+    aws_vpc.main
   ]
 }
 
@@ -94,7 +94,7 @@ resource "aws_security_group" "app_server_sg" {
   }
 
   depends_on = [
-    "aws_vpc.main"
+    aws_vpc.main
   ]
 }
 
@@ -140,6 +140,15 @@ resource "aws_security_group" "bastion_sg" {
   }
 
   depends_on = [
-    "aws_vpc.main"
+    aws_vpc.main
   ]
 }
+
+/*
+Classic loadbalancer
+resource "aws_security_group" "load_balancer" {
+  name = "elb-${var.component}-${var.deployment_identifier}"
+  description = "ELB for component: ${var.component}, deployment: ${var.deployment_identifier}"
+  vpc_id = var.vpc_id
+}
+*/

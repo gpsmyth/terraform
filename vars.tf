@@ -29,7 +29,7 @@ variable "Private_subnet_az_2_CIDR" {
 
 
 variable "AMI" {
-  type = "map"
+  type = map
 
   default = {
     // ap-southeast-2 = "ami-0e2b940b603bf07f3"

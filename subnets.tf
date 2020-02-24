@@ -10,7 +10,7 @@ resource "aws_subnet" "Public_subnet_az_1" {
   }
 
   depends_on = [
-    "aws_vpc.main"
+    aws_vpc.main
   ]
 }
 
@@ -26,7 +26,7 @@ resource "aws_subnet" "Public_subnet_az_2" {
   }
 
   depends_on = [
-    "aws_vpc.main"
+    aws_vpc.main
   ]
 }
 
@@ -41,7 +41,7 @@ resource "aws_subnet" "Private_subnet_az_1" {
   }
 
   depends_on = [
-    "aws_vpc.main"
+    aws_vpc.main
   ]
 }
 
@@ -56,6 +56,6 @@ resource "aws_subnet" "Private_subnet_az_2" {
   }
 
   depends_on = [
-    "aws_vpc.main"
+    aws_vpc.main
   ]
 }

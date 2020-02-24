@@ -1,12 +1,12 @@
 # Configure the AWS Provider
 provider "aws" {
   version = "~> 2.0"
-  region  = "${var.AWS_REGION}"
+  region  = var.AWS_REGION
 }
 
 # Create a VPC
 resource "aws_vpc" "main" {
-  cidr_block           = "${var.vpc_cidr}"
+  cidr_block           = var.vpc_cidr
   instance_tenancy     = "default"
   enable_dns_support   = true // gives you an internal domain name
   enable_dns_hostnames = true // gives you an internal host name
@@ -20,7 +20,7 @@ resource "aws_vpc" "main" {
 
 # Create a Subnet
 # resource "aws_subnet" "subnet1" {
-#     vpc_id     = "${aws_vpc.main.id}"
+#     vpc_id     = aws_vpc.main.id
 #     cidr_block = "10.0.1.0/24"
 #     map_public_ip_on_launch = true //it makes this a public subnet
 
@@ -37,6 +37,6 @@ resource "aws_internet_gateway" "prod-igw" {
     Name = "prod-igw"
   }
   depends_on = [
-    "aws_vpc.main"
+    aws_vpc.main
   ]
 }
