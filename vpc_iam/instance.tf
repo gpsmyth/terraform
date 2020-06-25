@@ -6,7 +6,7 @@ resource "aws_instance" "web1" {
   subnet_id = aws_subnet.main-public-1.id
 
   # the security group
-  vpc_security_group_ids = [aws_security_group.allow-ssh_http.id]
+  vpc_security_group_ids = [aws_security_group.allow-ssh.id]
 
   # The AWS keypair
   key_name = var.key_name
@@ -14,14 +14,8 @@ resource "aws_instance" "web1" {
   # As   cidr_block = "10.0.1.0/24" for main-public-1, let's assign a private ip
   private_ip = "10.0.1.4" # Static private ip
 
-  user_data = <<-EOF
-              #!/bin/bash
-              sudo su 
-              yum -y install httpd
-              echo "<p> My Instance! </p>" >> /var/www/html/index.html
-              sudo systemctl enable httpd
-              sudo systemctl start httpd
-              EOF
+  # role:
+  iam_instance_profile = aws_iam_instance_profile.s3-mybucket-role-instanceprofile.name
 }
 
 output "ip" {
