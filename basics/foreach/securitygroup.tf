@@ -1,5 +1,5 @@
 resource "aws_security_group" "sg_allow_ssh_http" {
-  vpc_id      = "vpc-myid"
+  vpc_id      = "vpc-myid"  # Identify your vpc id to that particular region
   name        = "allow-ssh_http" # can use expressions here
   description = "security group that allows ssh/http and all egress traffic"
 
