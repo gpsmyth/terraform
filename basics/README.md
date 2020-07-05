@@ -63,3 +63,11 @@ use1
 > var.AWS_REGION
 us-east-1
 ```
+
+```
+ replace("Hi you're working with a H string!", "H", "!" )
+!i you're working with a ! string!
+```
+
+<!-- Do smoe regex examples -->
+<!-- https://www.terraform.io/docs/configuration/functions/regex.html -->
