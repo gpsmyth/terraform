@@ -1,5 +1,5 @@
 resource "aws_security_group" "sg_allow_ssh_http" {
-  vpc_id      = "myvpc"
+  vpc_id      = "vpc-myid"
   name        = "allow-ssh_http" # can use expressions here
   description = "security group that allows ssh/http and all egress traffic"
 
@@ -38,4 +38,9 @@ resource "aws_security_group" "sg_allow_ssh_http" {
       cidr_blocks = ["0.0.0.0/0"]
     }
   }
+}
+
+output "ports" {
+  value = aws_security_group.sg_allow_ssh_http.ingress[*].from_port # new version
+  #value = aws_security_group.sg_allow_ssh_http.ingress.*.from_port # old version
 }

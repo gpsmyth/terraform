@@ -1,6 +1,6 @@
 variable "AWS_REGION" {
   type    = string
-  default = "eu-west-1"
+  default = "ap-southeast-2"
 }
 
 variable "ingress_ports" {
